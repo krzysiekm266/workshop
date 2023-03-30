@@ -35,12 +35,12 @@ public class EmployeeController {
         Stream<Field> streamFields =  Stream.of(emlployeeFields).filter((field)-> field.getName().equals("id") );
         boolean employeeFiledsValueNotNull = streamFields.allMatch((field) -> {
             try {
-                return field.get(field.getName()) != null;
+                return !field.get(field.getName()).equals(null);
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
         } );
