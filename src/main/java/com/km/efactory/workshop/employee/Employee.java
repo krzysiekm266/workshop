@@ -1,6 +1,10 @@
 package com.km.efactory.workshop.employee;
 
+import org.hibernate.annotations.Generated;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,6 +17,7 @@ import lombok.Setter;
 @Setter
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String companyId;
     private String position;
