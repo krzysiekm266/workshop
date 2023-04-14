@@ -21,4 +21,5 @@ public class Employee {
     private Long id;
     private String companyId;
     private String position;
+    private String name;
 }

@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,14 +33,18 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employees/{id}")
-    public ResponseEntity<Employee> getEmployeeById(@PathParam("id") Long id) {
+    public ResponseEntity<EmployeeDto> getEmployeeById(@PathParam("id") Long id) {
         Employee employee = this.employeeService.getEmployeeById(id)
             .orElseThrow(() -> new EmployeeIllegalStateException("Employee by Id:"+id+" not found."));
-        return new ResponseEntity<>(employee,HttpStatus.OK);
+        return new ResponseEntity<>(
+            new EmployeeDto(
+                employee.getName(),
+                employee.getCompanyId(),
+                employee.getPosition()),HttpStatus.OK);
     }
 
     @PostMapping(value = "/employees")
-    public ResponseEntity<?> createEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<?> createEmployee(@Validated @RequestBody Employee employee) {
         Employee createdEmployee = null;
         try {
              createdEmployee = this.employeeService.createEmployee(employee);
@@ -51,7 +56,6 @@ public class EmployeeController {
 
     @PutMapping(value = "/employees/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathParam("id") Long id,@RequestBody Employee employee) {
-
         return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
     }
 
