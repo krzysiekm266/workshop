@@ -1,25 +1,26 @@
 package com.km.efactory.workshop.employee;
 
-import org.hibernate.annotations.Generated;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
+  
+    @NotBlank(message = "Please enter valid company Id.")
     private String companyId;
+ 
+    @NotBlank(message = "Please enter valid company position.")
     private String position;
+
+    @NotBlank(message = "Please enter valid employee name.")
     private String name;
 }

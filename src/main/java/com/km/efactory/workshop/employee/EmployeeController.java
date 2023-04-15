@@ -1,14 +1,8 @@
 package com.km.efactory.workshop.employee;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.km.efactory.workshop.employee.exceptions.EmployeeIllegalStateException;
 
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 
@@ -29,29 +24,26 @@ public class EmployeeController {
     @GetMapping(value = "/employees")
     public  ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> allEmployees = this.employeeService.getAllEmployees();
-        return new ResponseEntity<>(allEmployees,HttpStatus.OK);
+        return ResponseEntity.ok(allEmployees);
     }
 
     @GetMapping(value = "/employees/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathParam("id") Long id) {
+    public ResponseEntity<EmployeeRecord> getEmployeeById(@PathParam("id") Long id) {
         Employee employee = this.employeeService.getEmployeeById(id)
             .orElseThrow(() -> new EmployeeIllegalStateException("Employee by Id:"+id+" not found."));
-        return new ResponseEntity<>(
-            new EmployeeDto(
+        return ResponseEntity.ok(
+            new EmployeeRecord(
                 employee.getName(),
                 employee.getCompanyId(),
-                employee.getPosition()),HttpStatus.OK);
+                employee.getPosition())
+        );
     }
 
     @PostMapping(value = "/employees")
-    public ResponseEntity<?> createEmployee(@Validated @RequestBody Employee employee) {
-        Employee createdEmployee = null;
-        try {
-             createdEmployee = this.employeeService.createEmployee(employee);
-        } catch (EmployeeIllegalStateException e) {
-            throw new EmployeeIllegalStateException("Employee attributes: "+e.getMessage()+" have invalid/null values.");
-        }
-        return new ResponseEntity<>(createdEmployee,HttpStatus.CREATED);    
+    public ResponseEntity<EmployeeRecord> createEmployee(@Valid @RequestBody Employee employee) {
+        Employee createdEmployee = this.employeeService.createEmployee(employee);
+
+        return new ResponseEntity<>(new EmployeeRecord(createdEmployee),HttpStatus.CREATED); 
     }
 
     @PutMapping(value = "/employees/{id}")

@@ -19,4 +19,6 @@ public class EmployeeExceptionsHandler {
     public ResponseEntity<Object> handleEmployeeNotExistException(EmployeeNotExistException ex) {
         return new ResponseEntity<>(ex,HttpStatus.NOT_FOUND);
     }
+
+   
 }
