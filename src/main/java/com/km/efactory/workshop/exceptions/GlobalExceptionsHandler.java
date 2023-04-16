@@ -13,7 +13,6 @@ import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class GlobalExceptionsHandler {
-    record Violation(String fieldName,String msg){}
 
     @ExceptionHandler(value={ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstrainViolationException(ConstraintViolationException ex) {
