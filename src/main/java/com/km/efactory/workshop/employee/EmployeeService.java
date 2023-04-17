@@ -35,9 +35,10 @@ public class EmployeeService {
         
     }
    
-    public void deleteEmployeeById(Long id) {
+    public String deleteEmployeeById(Long id) {
         Employee employee = this.employeeRepository.findById(id)
             .orElseThrow(() -> new EmployeeNotExistException("Delete failed. Employee by Id:"+id+"not exist."));
-        this.employeeRepository.delete(employee);    
+        this.employeeRepository.delete(employee); 
+        return "Employee by Id: "+id+" deleted.";   
     }
 }
