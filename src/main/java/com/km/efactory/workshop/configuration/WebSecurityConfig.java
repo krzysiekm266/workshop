@@ -1,6 +1,5 @@
 package com.km.efactory.workshop.configuration;
 
-import org.aspectj.weaver.ast.And;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -28,24 +27,43 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http
-        .csrf().disable()
-        .authorizeHttpRequests()
-        .requestMatchers("/api/v1/**")
-            .permitAll()
-        .anyRequest()
-            .authenticated()
-        .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
-        .logout()
-            .logoutUrl("/api/v1/logout")
-            .addLogoutHandler(logoutHandler)
-            .logoutSuccessHandler((request,response,authentication) -> SecurityContextHolder.clearContext())
-        .and()
+        .csrf(csrf -> csrf.disable())
+        .authorizeHttpRequests(authorizeRequest -> 
+            authorizeRequest
+                .requestMatchers("/api/v1/logout","/api/v1/authenticated").permitAll().anyRequest().authenticated()
+        )
+        .sessionManagement(sessionManagement -> 
+            sessionManagement
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        )
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
+        .logout(logout -> 
+            logout
+                .logoutUrl("/api/v1/logout")
+                .addLogoutHandler(logoutHandler)
+                .logoutSuccessHandler((request,response,authentication) -> SecurityContextHolder.clearContext())
+        )
         .build();
+        
+        //.csrf().disable()
+        // .authorizeHttpRequests()
+        // .requestMatchers("/api/v1/**")
+        //     .permitAll()
+        // .anyRequest()
+        //     .authenticated()
+        // .and()
+        //     .sessionManagement()
+        //     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        // .and()
+        //     .authenticationProvider(authenticationProvider)
+        //     .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
+        // .logout()
+        //     .logoutUrl("/api/v1/logout")
+        //     .addLogoutHandler(logoutHandler)
+        //     .logoutSuccessHandler((request,response,authentication) -> SecurityContextHolder.clearContext())
+        // .and()
+        // .build();
 
     
   }  
