@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 
-import com.km.efactory.workshop.security.JwtAuthenticationFilter;
+import com.km.efactory.workshop.security.jwt.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +30,8 @@ public class WebSecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authorizeRequest -> 
             authorizeRequest
-                .requestMatchers("/api/v1/logout","/api/v1/authenticated").permitAll().anyRequest().authenticated()
+                .requestMatchers("/api/v1/logout","/api/v1/authenticated").permitAll()
+                .anyRequest().authenticated()
         )
         .sessionManagement(sessionManagement -> 
             sessionManagement

@@ -1,4 +1,4 @@
-package com.km.efactory.workshop.security;
+package com.km.efactory.workshop.security.jwt;
 
 import java.io.IOException;
 

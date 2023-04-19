@@ -1,4 +1,4 @@
-package com.km.efactory.workshop.security;
+package com.km.efactory.workshop.security.logout;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
