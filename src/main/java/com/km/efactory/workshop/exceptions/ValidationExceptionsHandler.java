@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import jakarta.validation.ConstraintViolationException;
 
 @ControllerAdvice
-public class GlobalExceptionsHandler {
+public class ValidationExceptionsHandler {
 
     @ExceptionHandler(value={ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstrainViolationException(ConstraintViolationException ex) {

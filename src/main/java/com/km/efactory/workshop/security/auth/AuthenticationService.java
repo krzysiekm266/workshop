@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.km.efactory.workshop.employee.Employee;
 import com.km.efactory.workshop.employee.EmployeeRepository;
 import com.km.efactory.workshop.security.jwt.JwtService;
+import com.km.efactory.workshop.security.role.Role;
 import com.km.efactory.workshop.security.token.TokenRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +27,15 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        throw new RuntimeException("Not implemented.");
+        var employee = Employee.builder()
+            .firstName(request.getFirstName())
+            .lastName(request.getLastName())
+            .companyId(request.getCompanyId())
+            .password(request.getPassword())
+            .role(Role.USER)
+            .build();
+        var savedEmployee = this.employeeRepository.save(employee);
+        var jwtToken = this.jwtService.generateToken(employee);
     }
     
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
