@@ -30,7 +30,7 @@ public class Token {
     private String token;
 
     @Enumerated(EnumType.STRING)
-    private final TokenType tokenType = TokenType.BEARER;
+    private TokenType tokenType;
 
     private boolean revoked;
     private boolean expired;
