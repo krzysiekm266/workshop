@@ -18,30 +18,30 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class WorkshopConfig {
-//    private final EmployeeRepository employeeRepository;
-//
-//    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return companyId -> this.employeeRepository.findByCompanyId(companyId)
-//            .orElseThrow(() -> new UsernameNotFoundException("Employee not found."));
-//    }
-//
-//    @Bean
-//    public AuthenticationProvider authenticationProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService());
-//        authProvider.setPasswordEncoder(passwordEncoder());
-//        return authProvider;
-//
-//    }
-//
-//    @Bean
-//    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        return config.getAuthenticationManager();
-//    }
-//
-//    @Bean
-//    PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    private final EmployeeRepository employeeRepository;
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return companyId -> this.employeeRepository.findByCompanyId(companyId)
+            .orElseThrow(() -> new UsernameNotFoundException("Employee not found."));
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
