@@ -47,7 +47,7 @@ public class Employee implements UserDetails {
     @NotBlank(message = "Please enter valid last name.")
     private String lastName;
 
-    @NotBlank(message = "Please neter valid employee role.")
+    @NotBlank(message = "Please enter valid employee role.")
     @Enumerated(EnumType.STRING)
     private Role role;
 

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.km.efactory.workshop.employee.exceptions.EmployeeNotExistException;
 import com.km.efactory.workshop.security.token.Token;
 import com.km.efactory.workshop.security.token.TokenType;
 import org.springframework.http.HttpHeaders;
@@ -102,7 +103,9 @@ public class AuthenticationService {
         refreshToken = authHeader.substring(7);
         employeeCompanyId = this.jwtService.extractEmployeeCompanyId(refreshToken);
         if (employeeCompanyId != null) {
-            Employee employee = this.employeeRepository.findByCompanyId(employeeCompanyId).orElseThrow();
+            Employee employee = this.employeeRepository.findByCompanyId(employeeCompanyId).orElseThrow(
+                    () -> new EmployeeNotExistException("Employee company id: "+employeeCompanyId+" not exist.")
+            );
             if (this.jwtService.isTokenValid(refreshToken, employee)) {
                 String accessToken = this.jwtService.generateToken(employee);
                 revokeAllEmployeeTokens(employee);
