@@ -1,5 +1,8 @@
 package com.km.efactory.workshop.configuration;
 
+import com.km.efactory.workshop.employee.Employee;
+import com.km.efactory.workshop.security.role.Role;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,12 +39,27 @@ public class WorkshopConfig {
     }
 
     @Bean
-    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return args -> {
+            Employee admin = Employee.builder()
+                    .firstName("John")
+                    .lastName("Smith")
+                    .companyId("A001")
+                    .role(Role.ADMIN)
+                    .password("123456")
+                    .build();
+            //this.employeeRepository.save(admin);
+        };
+    }
+
 }

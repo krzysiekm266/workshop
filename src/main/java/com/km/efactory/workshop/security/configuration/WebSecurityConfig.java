@@ -75,7 +75,7 @@ public class WebSecurityConfig {
         .addFilterBefore(jwtAuthenticationFilter,UsernamePasswordAuthenticationFilter.class)
         .logout(logout ->
             logout
-                .logoutUrl("/api/v1/logout")
+                .logoutUrl("/api/v1/auth/logout")
                 .addLogoutHandler(logoutHandler)
                 .logoutSuccessHandler((request,response,authentication) -> SecurityContextHolder.clearContext())
         )

@@ -3,20 +3,13 @@ package com.km.efactory.workshop.employee;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.km.efactory.workshop.security.role.Role;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -31,7 +24,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Employee implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "employee_seq")
+    @SequenceGenerator(name = "employee_seq",sequenceName = "employee_seq",allocationSize = 1)
     private Long id;
   
     @NotBlank(message = "Please enter valid company Id.")
