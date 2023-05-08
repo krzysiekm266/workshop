@@ -13,8 +13,9 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Token {
     @Id
+    @SequenceGenerator(name = "token_seq",sequenceName = "token_seq",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "token_seq")
-    @SequenceGenerator(name = "token_seq",sequenceName = "token_id",allocationSize = 1)
+    @Column(updatable = false)
     private Long id;
 
     @Column(unique = true)

@@ -1,5 +1,6 @@
 package com.km.efactory.workshop.employee;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,8 +23,9 @@ import jakarta.validation.constraints.Size;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Employee implements UserDetails {
     @Id
+    @SequenceGenerator(name = "employee_seq",sequenceName = "employee_seq",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "employee_seq")
-    @SequenceGenerator(name = "employee_seq",sequenceName = "employee_id",allocationSize = 1)
+    @Column(updatable = false)
     private Long id;
   
     @NotBlank(message = "Please enter valid company Id.")
@@ -39,7 +41,9 @@ public class Employee implements UserDetails {
     @NotBlank(message = "Please enter valid last name.")
     private String lastName;
 
-    @NotBlank(message = "Please enter valid employee role.")
+
+
+    //@NotBlank(message = "Please enter valid employee role.")
     @Enumerated(EnumType.STRING)
     private Role role;
 

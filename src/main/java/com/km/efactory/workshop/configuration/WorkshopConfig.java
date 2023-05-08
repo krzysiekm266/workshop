@@ -58,7 +58,7 @@ public class WorkshopConfig {
                     .role(Role.ADMIN)
                     .password("123456")
                     .build();
-           // this.employeeRepository.save(admin);
+            this.employeeRepository.save(admin);
         };
     }
 

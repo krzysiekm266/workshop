@@ -1,6 +1,8 @@
 package com.km.efactory.workshop.employee;
 
 import java.util.List;
+
+import com.km.efactory.workshop.security.role.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,10 +20,10 @@ import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class EmployeeController {
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @GetMapping(value = "/employees")
     public  ResponseEntity<List<Employee>> getAllEmployees() {
