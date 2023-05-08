@@ -48,18 +48,18 @@ public class WorkshopConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return args -> {
-            Employee admin = Employee.builder()
-                    .firstName("John")
-                    .lastName("Smith")
-                    .companyId("A001")
-                    .role(Role.ADMIN)
-                    .password("123456")
-                    .build();
-            this.employeeRepository.save(admin);
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner() {
+//        return args -> {
+//            Employee admin = Employee.builder()
+//                    .firstName("John")
+//                    .lastName("Smith")
+//                    .companyId("A001")
+//                    .role(Role.ADMIN)
+//                    .password("123456")
+//                    .build();
+//            this.employeeRepository.save(admin);
+//        };
+//    }
 
 }
