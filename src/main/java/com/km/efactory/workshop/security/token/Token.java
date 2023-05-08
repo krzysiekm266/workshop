@@ -3,19 +3,18 @@ package com.km.efactory.workshop.security.token;
 import com.km.efactory.workshop.employee.Employee;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Token {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "token_seq")
+    @SequenceGenerator(name = "token_seq",sequenceName = "token_id",allocationSize = 1)
     private Long id;
 
     @Column(unique = true)
