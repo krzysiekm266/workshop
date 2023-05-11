@@ -14,7 +14,7 @@ import jakarta.validation.ConstraintViolationException;
 @ControllerAdvice
 public class ValidationExceptionsHandler {
 
-    @ExceptionHandler(value={ConstraintViolationException.class})
+    @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstrainViolationException(ConstraintViolationException ex) {
        List<String> violationList = ex.getConstraintViolations()
         .stream()

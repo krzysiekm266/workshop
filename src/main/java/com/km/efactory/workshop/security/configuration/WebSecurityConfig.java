@@ -40,9 +40,9 @@ public class WebSecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authorizeRequest ->
             authorizeRequest
-                .requestMatchers("/api/v1/auth/logout","/api/v1/auth/authenticate").permitAll()
-                    .requestMatchers("/api/v1/auth/register").hasRole(Role.ADMIN.name())
-                .anyRequest().authenticated()
+                    .requestMatchers("/api/v1/auth/logout","/api/v1/auth/authenticate").permitAll()
+                    .requestMatchers("/api/v1/employees").authenticated()
+                    .anyRequest().authenticated()
 
         )
         .sessionManagement(sessionManagement ->

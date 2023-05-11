@@ -10,12 +10,12 @@ import com.km.efactory.workshop.employee.EmployeeController;
 @ControllerAdvice(basePackageClasses = {EmployeeController.class})
 public class EmployeeExceptionsHandler {
 
-    @ExceptionHandler(value = {EmployeeIllegalStateException.class})
+    @ExceptionHandler(EmployeeIllegalStateException.class)
     public ResponseEntity<Object> handleEmployeeIllegalStateException(EmployeeIllegalStateException ex) {
         return new ResponseEntity<>(ex,HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value ={EmployeeNotExistException.class})
+    @ExceptionHandler(EmployeeNotExistException.class)
     public ResponseEntity<Object> handleEmployeeNotExistException(EmployeeNotExistException ex) {
         return new ResponseEntity<>(ex,HttpStatus.NOT_FOUND);
     }

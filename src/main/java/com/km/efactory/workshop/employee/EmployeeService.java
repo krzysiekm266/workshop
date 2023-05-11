@@ -20,7 +20,7 @@ public class EmployeeService {
         return this.employeeRepository.findById(id);
     }
 
-    public Employee createEmployee(Employee employee) throws EmployeeIllegalStateException {
+    public Employee createEmployee(Employee employee) {
         
         return this.employeeRepository.save(employee);
     }

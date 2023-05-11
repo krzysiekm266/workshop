@@ -7,6 +7,7 @@ import java.util.List;
 import com.km.efactory.workshop.security.role.EnumNamePattern;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -29,8 +30,8 @@ public class Employee implements UserDetails,Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "employee_seq")
     @Column(updatable = false)
     private Long id;
-  
-    @NotBlank(message = "Please enter valid company Id.")
+
+    @Pattern(regexp = "^[A-Z][0-9]{4}$",message =  "Please enter valid company Id.")
     private String companyId;
  
     @NotBlank(message = "Please enter valid password.")
@@ -45,8 +46,8 @@ public class Employee implements UserDetails,Serializable {
 
 
 
-    @NotNull(message = "Please enter valid employee role.")
-    @EnumNamePattern(regexp = "ADMIN|USER")
+    @NotNull(message = "Role cant be null.")
+    @EnumNamePattern(regexp = "ADMIN|USER",message = "Please enter valid employee role.")
     @Enumerated(EnumType.STRING)
     private Role role;
 

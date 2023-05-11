@@ -2,7 +2,6 @@ package com.km.efactory.workshop.employee;
 
 import java.util.List;
 
-import com.km.efactory.workshop.security.role.Role;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,16 +38,17 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "/employees")
-    public ResponseEntity<EmployeeRecord> createEmployee(@Valid @RequestBody Employee employee) {
+    public ResponseEntity<EmployeeRecordDto> createEmployee(@Valid @RequestBody Employee employee) {
         Employee createdEmployee = this.employeeService.createEmployee(employee);
-
-        return new ResponseEntity<>(new EmployeeRecord(createdEmployee),HttpStatus.CREATED); 
+        EmployeeRecordDto employeeRecordDto = new EmployeeRecordDto(createdEmployee);
+        return new ResponseEntity<>(employeeRecordDto,HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/employees/{id}")
-    public ResponseEntity<EmployeeRecord> updateEmployee(@PathParam("id") Long id,@Valid @RequestBody Employee employee) {
+    public ResponseEntity<EmployeeRecordDto> updateEmployee(@PathParam("id") Long id, @Valid @RequestBody Employee employee) {
         Employee updatedEmployee = this.employeeService.updateEmployeeById(id, employee);
-        return new ResponseEntity<>(new EmployeeRecord(updatedEmployee),HttpStatus.ACCEPTED);
+        EmployeeRecordDto employeeRecordDto = new EmployeeRecordDto(updatedEmployee);
+        return new ResponseEntity<>(employeeRecordDto,HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/employees/{id}")

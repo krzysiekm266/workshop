@@ -55,7 +55,7 @@ public class WorkshopConfig {
             Employee admin = Employee.builder()
                     .firstName("John")
                     .lastName("Smith")
-                    .companyId("A001")
+                    .companyId("A0001")
                     .role(Role.ADMIN)
                     .password(passwordEncoder().encode("123456"))
                     .build();

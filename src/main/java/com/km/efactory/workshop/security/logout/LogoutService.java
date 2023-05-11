@@ -1,5 +1,6 @@
 package com.km.efactory.workshop.security.logout;
 
+import com.km.efactory.workshop.security.token.Token;
 import com.km.efactory.workshop.security.token.TokenRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +23,7 @@ public class LogoutService implements LogoutHandler {
            return;
        }
        jwt = authHeader.substring(7);
-       var storedToken = this.tokenRepository.findByToken(jwt).orElse(null);
+       Token storedToken = this.tokenRepository.findByToken(jwt).orElse(null);
        if(storedToken != null) {
            storedToken.setExpired(true);
            storedToken.setRevoked(true);
