@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import com.km.efactory.workshop.security.role.EnumNamePattern;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +23,7 @@ import jakarta.validation.constraints.Size;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Employee implements UserDetails {
+public class Employee implements UserDetails,Serializable {
     @Id
     @SequenceGenerator(name = "employee_seq",sequenceName = "employee_seq",allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "employee_seq")
@@ -43,7 +45,8 @@ public class Employee implements UserDetails {
 
 
 
-    //@NotBlank(message = "Please enter valid employee role.")
+    @NotNull(message = "Please enter valid employee role.")
+    @EnumNamePattern(regexp = "ADMIN|USER")
     @Enumerated(EnumType.STRING)
     private Role role;
 

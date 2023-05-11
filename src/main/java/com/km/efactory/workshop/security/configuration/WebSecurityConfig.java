@@ -1,6 +1,7 @@
 package com.km.efactory.workshop.security.configuration;
 
 import com.km.efactory.workshop.employee.EmployeeRepository;
+import com.km.efactory.workshop.security.role.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,8 +40,10 @@ public class WebSecurityConfig {
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(authorizeRequest ->
             authorizeRequest
-                .requestMatchers("/api/v1/auth/logout","/api/v1/auth/authenticated").permitAll()
+                .requestMatchers("/api/v1/auth/logout","/api/v1/auth/authenticate").permitAll()
+                    .requestMatchers("/api/v1/auth/register").hasRole(Role.ADMIN.name())
                 .anyRequest().authenticated()
+
         )
         .sessionManagement(sessionManagement ->
             sessionManagement

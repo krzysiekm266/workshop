@@ -5,6 +5,7 @@ import com.km.efactory.workshop.security.role.Role;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -48,18 +49,19 @@ public class WorkshopConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public CommandLineRunner commandLineRunner() {
-//        return args -> {
-//            Employee admin = Employee.builder()
-//                    .firstName("John")
-//                    .lastName("Smith")
-//                    .companyId("A001")
-//                    .role(Role.ADMIN)
-//                    .password("123456")
-//                    .build();
-//            this.employeeRepository.save(admin);
-//        };
-//    }
+    @Bean
+    public CommandLineRunner commandLineRunner() {
+        return args -> {
+            Employee admin = Employee.builder()
+                    .firstName("John")
+                    .lastName("Smith")
+                    .companyId("A001")
+                    .role(Role.ADMIN)
+                    .password(passwordEncoder().encode("123456"))
+                    .build();
+            this.employeeRepository.save(admin);
+
+        };
+    }
 
 }
